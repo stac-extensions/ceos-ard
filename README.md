@@ -1,18 +1,20 @@
-# CEOS ARD Extension Specification
+# CEOS-ARD Extension Specification
 
 - **Title:** CEOS-ARD
-- **Identifier:** <https://stac-extensions.github.io/ceos-ard/v0.2.0/schema.json>
+- **Identifier:**
+  - <https://stac-extensions.github.io/ceos-ard/v0.2.0/schema.json>
+  - See section [Profiles](#profiles) for more
+
 - **Field Name Prefix:** ceos_ard
 - **Scope:** Item, Collection
 - **Extension [Maturity Classification](https://github.com/radiantearth/stac-spec/tree/master/extensions/README.md#extension-maturity):** Proposal
 - **Owner**: @m-mohr
 
 This document explains the CEOS-ARD Extension to the [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification.
-It specifies how to create STAC Items and Collections that comply to the various CEOS ARD product family specifications.
-It is planned that this extension supersedes the existing [CARD4L extension](https://github.com/stac-extensions/card4l),
-which itself is planned to be deprecated.
+It specifies how to create STAC Items and Collections that comply to the various CEOS-ARD product family specifications.
 
-**WORK IN PROGRESS**
+It is planned that this extension supersedes the existing [CARD4L extension](https://github.com/stac-extensions/card4l),
+which itself is planned to be deprecated. **WORK IN PROGRESS**
 
 - Examples:
   - [Item example](examples/item.json): Shows the basic usage of the extension in a STAC Item (ToDo)
@@ -32,64 +34,42 @@ The fields in the table below can be used in these parts of STAC documents:
 
 | Field Name                     | Data Type | Description |
 | ------------------------------ | --------- | ----------- |
-| ceos_ard:specification         | string    | **REQUIRED.** The CARD4L product family specification implemented. |
-| ceos_ard:specification_version | string    | **REQUIRED.** The CEOS-ARD product family specification version. |
+| ceos_ard:type                  | string    | **REQUIRED.** The CEOS-ARD (sensor) type implemented, one of `optical` or `radar`. |
+| ceos_ard:specification         | string    | **REQUIRED.** The CEOS-ARD product family specification implemented. |
+| ceos_ard:specification_version | string    | **REQUIRED.** The CEOS-ARD product family specification version implemented. |
 
-### Additional Field Information
+The following combinations of values are supported for the fields above:
 
-#### ceos_ard:specification
+| PFS                                               | `ceos_ard:type` | `ceos_ard:specification` | `ceos_ard:specification_version` | STAC Status |
+| ------------------------------------------------- | --------------- | ------------------------ | -------------------------------- | ----------- |
+| Surface Reflectance                               | `optical`       | `SR`                     | `5.0`                            | Stable      |
+| Surface Temperature                               | `optical`       | `ST`                     | `5.0`                            | Stable      |
+| Aquatic Reflectance                               | `optical`       | `AR`                     | `1.0`                            | WIP         |
+| Nighttime Lights Surface Radiance                 | `optical`       | `NLSR`                   | `1.0`                            | WIP         |
+| LiDAR Terrain and Canopy Top Height               | `optical`       | `LIDAR-TCTH`             | *Unreleased*                     | Reserved    |
+| Combined SAR: Normalised Radar Backscatter (NRB)  | `radar`         | `NRB`                    | `1.0`                            | WIP         |
+| Combined SAR: Polarimetric Radar (POL)            | `radar`         | `POL`                    | `1.0`                            | WIP         |
+| Combined SAR: Ocean Radar Backscatter (ORB)       | `radar`         | `ORB`                    | `1.0`                            | WIP         |
+| Combined SAR: Geocoded Single-Look Complex (GSLC) | `radar`         | `GSLC`                   | `1.0`                            | WIP         |
+| Combined SAR: Interferometric Radar (INSAR)       | `radar`         | `INSAR`                  | *Unreleased*                     | Reserved    |
 
-The following values are supported:
+## Profiles
 
-**Type 'Optical':**
-- `optical-ar`: Aquatic Reflectance
-- `optical-lidar-tcth`: LiDAR Terrain and Canopy Top Height
-- `optical-sr`: Surface Reflectance
-- `optical-st`: Surface Temperature
+Additional requirements for CEOS-ARD are specified in the corresponding STAC profiles:
 
-**Type 'Radar':**
-- `radar-gslc`: Geocoded Single-Look Complex (GSLC)
-- `radar-insar`: Interferometric Radar (INSAR)
-- `radar-nrb`: Normalised Radar Backscatter
-- `radar-orb`: Ocean Radar Backscatter
-- `radar-pr`: Polarimetric Radar
+- [Optical](optical.md)
+- [Radar](radar.md)
 
-This field was named `card4l:specification` in the STAC CARD4L extension.
-The values translate as follows:
-- `SR` -> `optical-sr`
-- `ST` -> `optical-st`
-- `NRB` -> `radar-nrb`
-- `POL` -> `radar-pr`
-
-#### ceos_ard:specification_version
-
-At the time of writing this document the following versions are the latest versions.
-You can use older or newer versions, but the metadata mapping might not be complete.
-
-**Type 'Optical':**
-- `optical-ar`: 1.0
-- `optical-lidar-tcth`: Unreleased, reserved for future use
-- `optical-sr`: 5.0
-- `optical-st`: 5.0
-
-**Type 'Radar':**
-- `radar-gslc`: Unreleased, reserved for future use
-- `radar-insar`: Unreleased, reserved for future use
-- `radar-nrb`: 5.5
-- `radar-orb`: 1.0
-- `radar-pr`: 3.5
-
-This field was named `card4l:specification_version` in the STAC CARD4L extension.
-The field values can be copied as is.
+One of the profiles above must be implemented.
 
 ## Relation types
 
 The following types should be used as applicable `rel` types in the
 [Link Object](https://github.com/radiantearth/stac-spec/tree/master/item-spec/item-spec.md#link-object).
 
-| Type            | Description |
-| --------------- | ----------- |
-| card4l-document | **REQUIRED.** Provides at least one link to the CEOS-ARD product family specification document. Word (media type: `application/vnd.openxmlformats-officedocument.wordprocessingml.document`) and/or PDF (media type: `application/pdf`). |
+| Type                   | Description |
+| ---------------------- | ----------- |
+| ceos-ard-specification | *n/a* | **REQUIRED.** Provides at least one link to the CEOS-ARD specification document. Word (media type: `application/vnd.openxmlformats-officedocument.wordprocessingml.document`) and/or PDF (media type: `application/pdf`). |
 
 ## Contributing
 
