@@ -38,8 +38,12 @@ comply to the [CEOS-ARD product family specifications] (PFS) for optical sensors
   - [Processing](#processing)
   - [Projection](#projection)
   - [View](#view)
+  - [Custom Fields](#custom-fields)
   - [Links](#links)
   - [Assets](#assets)
+    - [Data](#data)
+    - [Per-Pixel Metadata](#per-pixel-metadata)
+    - [Bands](#bands)
 - [Notes](#notes)
 
 ## Document Structure
@@ -61,7 +65,6 @@ This profile doesn't define new STAC fields, it's just a profile that uses
 | [CEOS-ARD]        | `https://stac-extensions.github.io/ceos-ard/v0.2.0/optical/schema.json` | ✓ |
 | [Classification]  | `https://stac-extensions.github.io/classification/v1.1.0/schema.json`   | ✗ |
 | [Electro Optical] | `https://stac-extensions.github.io/eo/v2.0.0/schema.json`               | ✓ |
-| [File]            | `https://stac-extensions.github.io/file/v2.0.0/schema.json`             | ✗ |
 | [Processing]      | `https://stac-extensions.github.io/processing/v1.1.0/schema.json`       | ✗ |
 | [Projection]      | `https://stac-extensions.github.io/projection/v1.0.0/schema.json`       | ✓ |
 | [Raster]          | `https://stac-extensions.github.io/raster/v2.0.0/schema.json`           | ✓ |
@@ -140,7 +143,7 @@ but preferrably point to a STAC Collection or Item with additional metadata for 
 
 | Field Name     | Req. | Description |
 | -------------- | ---- | ----------- |
-| eo:cloud_cover | 1.17 | **REQUIRED** in AR. Cloud cover as quality flag. |
+| eo:cloud_cover | 1.17 | **REQUIRED for AR**. Cloud cover as quality flag. |
 | eo:snow_cover  | 1.17 | Snow/Ice cover as quality flag. |
 
 More data quality flags than `eo:cloud_cover` and `eo:snow_cover` should usually be set for CEOS-ARD compliance,
@@ -222,13 +225,13 @@ In addition to the links defined in specific extensions above, the following rel
 | related       | 1.14      | URL to the sources of auxiliary data used in the generation process, ideally as STAC Items. |
 | describedby   | *various* | URL to documentation, see below for details. |
 
-#### related
+#### related <!-- omit in toc -->
 
 Links to the sources of auxiliary data used in the generation process.
 This is **required** if auxiliary data is used in the generation process.
 Excludes DEMs and DSMs, which must use [separate relation types](#accuracy) instead.
 
-#### describedby
+#### describedby <!-- omit in toc -->
 
 Various CEOS-ARD requirements ask for documentation about some specifics of the data. 
 Those links should use the relation type `describedby` and have a clear title that clearly gives information about what the link documents.
@@ -278,8 +281,6 @@ Roles can also be combined for a single file.
 For example, a cloud mask which also includes cloud shadows  can use the roles `cloud` and `cloud-shadow` for a single file.
 The `classification:classes` and/or `bands` properties can specify which value(s) correspond to clouds and/or cloud shadows respectively.
 
-**Media Types:** It is STRONGLY RECOMMENDED to provide the [Media Type] of the file format for each asset.
-
 #### Data
 
 For non-metadata requirements that refer to how the data must be created and processed
@@ -292,24 +293,8 @@ For data assets, the following properties are relavant in the context of CEOS-AR
 | Field Name | Req.  | Description |
 | ---------- | ----- | ----------- |
 | roles      | *n/a* | **REQUIRED.** All data assets must to include the `data` role. |
-| bands      | 1.10  | **REQUIRED.** All (spectral) bands must be specified in the assets as [Band Object]s. |
-
-##### Bands
-
-**Deprecation Notice:** In this document we only refer to the new `bands` construct that will be introcued with STAC 1.1.
-For backward compatibility, it is recommended to also provide `eo:bands` and `raster:bands`.
-Please check the [Raster] and [Electro Optical] extensions for details.
-
-| Field Name | Req. | DDescription |
-| ---------- | ---- | ------------ |
-| nodata     | 2.2  | **REQUIRED.** Value(s) for no-data. |
-| unit       | 3.1  | The unit of the values in the asset, preferably compliant to [UDUNITS-2] units (singular). For ST the unit must be `kelvin`, for NLSR the unit is usually `nit`. |
-
-It is **required** provide the `name` and `eo:central_wavelength`.
-For AR it is also **required** to provide `eo:full_width_half_max`.
-Additional band information such as spectral response details are optional.
-
-See the STAC [Bands] for further details.
+| bands      | 1.10  | **REQUIRED.** All (spectral) bands must be specified in the assets as [Band Object]s. See [Bands](#bands) for details. |
+| type       | *n/a* | STRONGLY RECOMMENDED. [Media Type] of the file format. |
 
 #### Per-Pixel Metadata
 
@@ -322,11 +307,15 @@ Per-pixel metadata can be encoded in different way, for example:
 In any way, the per-pixel metadata and its values must be clearly identifiable, e.g. by providing 
 clear titles, roles, band information, bitfields, classes, and/or unit  where applicable.
 
-Some general rules that apply for per-pixel metadata assets:
-- **Roles:** All metadata assets are **required** to include the role `metadata` in the `roles` array.
-- **Types:** It is STRONGLY RECOMMENDED to provide the media type in the `type` property for all assets.
+For per-pixel metadata assets, the following properties are relavant in the context of CEOS-ARD:
 
-##### Incomplete Testing / Per-Pixel Assessment
+| Field Name | Req.  | Description |
+| ---------- | ----- | ----------- |
+| roles      | *n/a* | **REQUIRED.** All data assets must to include the `metadata` role. |
+| bands      | 1.10  | **REQUIRED.** All bands must be specified in the assets as [Band Object]s. See [Bands](#bands) for details. |
+| type       | *n/a* | STRONGLY RECOMMENDED. [Media Type] of the file format. |
+
+##### Incomplete Testing / Per-Pixel Assessment <!-- omit in toc -->
 
 - **PFS:** all
 - **Requirement:** 2.3
@@ -336,7 +325,7 @@ A per-pixel mask **must** be provided that identifies the pixel for which the pe
 The asset **must** identify the values of the mask using the `classification:classes` or `classification:bitfield` properties.
 The mask **may** be provided per band, in this case the `bands` property must be provided.
 
-##### Saturation
+##### Saturation <!-- omit in toc -->
 
 - **PFS:** all
 - **Requirement:** 2.4
@@ -346,7 +335,7 @@ A per-pixel mask **must** be provided that identifies pixel for which at least o
 The asset **must** identify the values of the mask using the `classification:classes` or `classification:bitfield` properties.
 The mask **may** be provided per band, in this case the `bands` property must be provided.
 
-##### Cloud / Cloud Shadow
+##### Cloud / Cloud Shadow <!-- omit in toc -->
 
 - **PFS:** all
 - **Requirement:** 2.5 / 2.6
@@ -355,101 +344,86 @@ The mask **may** be provided per band, in this case the `bands` property must be
 Separate per-pixel masks **must** be provided that identify pixels which are identified as cloud or cloud shadow respecitvely.
 The asset **must** identify the values of the mask using the `classification:classes` or `classification:bitfield` properties.
 
-The following assets are **required** for some of the PFS:
+The following additional assets are **required** for **NLSR only**:
 
-| Role Name(s)         | Req. (PFS)           | Description |
-| -------------------- | -------------------- | ----------- |
-| date                 | 1.3                  | Per-pixel acquisition timestamps. |
-| snow-ice             | 2.7 (ST) / 2.8 (SR)  | Indicates whether a pixel is assessed as being snow/ice or not. |
-| land-water           | 2.7 (SR)             | Indicates whether a pixel is assessed as being land or water. |
-| incidence-angle      | 2.8 (ST) / 2.11 (SR) | Per-pixel incidence angles. `unit` is usually `degree`. |
-| azimuth              | 2.8 (ST) / 2.11 (SR) | Per-pixel azimuth angles. `unit` is usually `degree`. |
-| sun-azimuth          | 2.8 (ST) / 2.11 (SR) | Per-pixel sun azimuth angles. `unit` is usually `degree`. |
-| sun-elevation        | 2.8 (ST) / 2.11 (SR) | Per-pixel sun elevation angles. `unit` is usually `degree`. |
-| terrain-shadow       | 2.9 (SR)             | Indicates whether a pixel is not directly illuminated due to terrain shadowing. |
-| terrain-occlusion    | 2.10 (SR)            | Indicates whether a pixel is not visible to the sensor due to terrain occlusion during off-nadir viewing. |
-| terrain-illumination | 2.12 (SR)            | Coefficients used for terrain illumination correction are provided for each pixel. |
+| Role Name                | Req. | Description |
+| ------------------------ | ---- | ----------- |
+| `land-water`             | 2.7  | Indicates whether a pixel is assessed as being land or water. |
+| `snow-ice`               | 2.8  | Indicates whether a pixel is assessed as being snow or ice. |
+| `brightness-temperature` | 2.15 | Provides the brightness temperature from thermal bands per pixel. |
+| `sun-azimuth`            | 2.16 | Per-pixel sun azimuth angles. `unit` is usually `degree`. |
 
-- Land/Water Mask: 2.7 (AR/NLSR) v
-- Snow/Ice Mask 2.8 (NLSR) v
-- Sea/Lake/River Ice Mask: 2.8 (AR)
-- Sun Glint: 2.9 (AR)
-- Whitecap Foam Mask: 2.11 (AR)
-- Floating Vegetation / Surface Scum Mask / Correction: 2.14 / 3.12 (AR)
-- Aerosol Optical Depth Parameter: 2.15 (AR)
-- Optically Deep or Optically Shallow Assessment: 2.17 (AR)
-- Turbid Water Flag / Corection: 2.18 / 3.13 (AR)
-- Bidirectional Reflectance Distribution Function Applied: 2.19 (AR)
-- Altitude (ASL): 2.20 (AR)
-- Brightness Temperature: 2.15 (NLSR)
-- Solar Zenith Angle: 2.16 (NLSR)
+The following additional assets are **required** for **AR only**:
 
-##### Optional
+| Role Name                 | Req. | Description |
+| ------------------------- | ---- | ----------- |
+| `land-water`              | 2.7  | Indicates whether a pixel is assessed as being land or water. |
+| `waterbody-ice`           | 2.8  | Indicates whether a pixel is assessed as being sea, lake, or river ice. |
+| `sun-glint`               | 2.9  | Indicates whether a pixel is assessed as absent or correctable (moderate), or uncorrectable (severe) Sun glint. Optionally, indicates the amount of Sun glint for each pixel and band. |
+| `whitecap-foam`           | 2.11 | Indicates whether a pixel is assessed as affected by whitecaps or foam as a function of the wind speed or other. |
+| `surface-scum`            | 2.14 | Indicates whether a pixel is assessed as affected by floating vegetation/surface scum. |
+| `aod`                     | 2.15 | Indicates either per-pixel spectral Aerosol Optical Depth (AOD), or per-pixel AOD (550nm) and Angstrom exponent. |
+| `optically-deep-shallow`  | 2.17 | Indicates, based on likelihood (bathymetry maps and average Kd (preferred) or based on turbidity or Secchi disk transparency), whether water pixels may be optically deep or optically shallow. This will most likely be bathymetry map contour based. |
+| `turbid-water`            | 2.18 | Indicates whether a pixel is assessed as being turbid or not. |
+| `asl`                     | 2.20 | Indicates approximate altitude (ASL) of water body pixels is required for atmospheric correction (range = -430 to ~6500m). |
+| `surface-scum-correction` | 3.12 | Indicates whether a pixel has been corrected for floating vegetation/surface scum or not. |
+| `turbid-water-correction` | 3.13 | Indicates whether the atmospheric correction accounted for a pixel being turbid or not. |
 
-- Land/Water Mask: 2.7 (SR) ^
-- Snow/Ice Mask 2.8 (SR) / 2.7 (ST) ^
-- Terrain Shadow Mask: 2.9 (SR/NLSR)
-- Terrain Occlusion: 2.10 (SR/NLSR)
-- Solar / Lunar / View Geometry: 2.11 (SR/NLSR) / 2.8 (ST) / 2.12 (AR)
-- Terrain Illumination Correction: 2.12 (SR/NLSR)
-- Sky Glin: 2.10 (AR)
-- Adjacency Effects: 2.13 (AR)
-- Deep / Shallow Water: 2.16 (AR)
-- Measurement Uncertainty: 3.3 (ST) / 3.2 (SR/NLSR)
-- Sun Glint Correction: 3.8 (AR)
-- Sky Glint Correction: 3.9 (AR)
+##### Optional <!-- omit in toc -->
 
-The following assets are **optional** for some or all of the PFS:
+The following assets are **optional** for **all of the PFS**:
 
-| Role Name(s)         | Req. (PFS)           | Description |
-| -------------------- | -------------------- | ----------- |
-| date                 | 1.3                  | Per-pixel acquisition timestamps. |
-| snow-ice             | 2.7 (ST) / 2.8 (SR)  | Indicates whether a pixel is assessed as being snow/ice or not. |
-| land-water           | 2.7 (SR)             | Indicates whether a pixel is assessed as being land or water. |
-| incidence-angle      | 2.8 (ST) / 2.11 (SR) | Per-pixel incidence angles. `unit` is usually `degree`. |
-| azimuth              | 2.8 (ST) / 2.11 (SR) | Per-pixel azimuth angles. `unit` is usually `degree`. |
-| sun-azimuth          | 2.8 (ST) / 2.11 (SR) | Per-pixel sun azimuth angles. `unit` is usually `degree`. |
-| sun-elevation        | 2.8 (ST) / 2.11 (SR) | Per-pixel sun elevation angles. `unit` is usually `degree`. |
-| terrain-shadow       | 2.9 (SR)             | Indicates whether a pixel is not directly illuminated due to terrain shadowing. |
-| terrain-occlusion    | 2.10 (SR)            | Indicates whether a pixel is not visible to the sensor due to terrain occlusion during off-nadir viewing. |
-| terrain-illumination | 2.12 (SR)            | Coefficients used for terrain illumination correction are provided for each pixel. |
+| Role Name(s)      | Req. (PFS)                            | Description |
+| ----------------- | ------------------------------------- | ----------- |
+| `date`            | 1.3 (all)                             | Per-pixel acquisition timestamps. |
+| `incidence-angle` | 2.8 (ST) / 2.11 (SR/NLSR) / 2.12 (AR) | Per-pixel incidence angles. `unit` is usually `degree`. |
+| `azimuth`         | 2.8 (ST) / 2.11 (SR/NLSR) / 2.12 (AR) | Per-pixel azimuth angles. `unit` is usually `degree`. |
+| `sun-azimuth`     | 2.8 (ST) / 2.11 (SR/NLSR) / 2.12 (AR) | Per-pixel sun azimuth angles. `unit` is usually `degree`. |
+| `sun-elevation`   | 2.8 (ST) / 2.11 (SR/NLSR) / 2.12 (AR) | Per-pixel sun elevation angles. `unit` is usually `degree`. |
 
-#### Additional Asset Properties
+The following assets are **optional** for **either SR, ST, or NLSR**:
 
-For per-pixel metadata assets, the following properties may be relavant in the context of CEOS-ARD:
+| Role Name(s)           | Req. (PFS)          | Description |
+| ---------------------- | ------------------- | ----------- |
+| `snow-ice`             | 2.7 (ST) / 2.8 (SR) | Indicates whether a pixel is assessed as being snow or ice.  |
+| `land-water`           | 2.7 (SR)            | Indicates whether a pixel is assessed as being land or water. |
+| `terrain-shadow`       | 2.9 (SR/NLSR)       | Indicates whether a pixel is not directly illuminated due to terrain shadowing. |
+| `terrain-occlusion`    | 2.10 (SR/NLSR)      | Indicates whether a pixel is not visible to the sensor due to terrain occlusion during off-nadir viewing. |
+| `terrain-illumination` | 2.12 (SR/NLSR)      | Coefficients used for terrain illumination correction are provided for each pixel. |
 
-| Field Name | Req.  | Description |
-| ---------- | ----- | ----------- |
-| roles      | *n/a* | **REQUIRED.** All data assets must to include the `data` role. |
-| bands      | 1.10  | **REQUIRED.** All bands must be specified in the assets as [Band Object]s. |
+The following assets are **optional** for **AR**:
 
-##### Bands
+| Role Name(s)        | Req. | Description |
+| ------------------- | ---- | ----------- |
+| `sky-glint`         | 2.10 | Indicates the amount of sky glint for each pixel and band. |
+| `adjacency-effects` | 2.13 | Provides the risk of per-pixel adjacency effects contamination, through flagging to denote per-pixel minimum, medium or high adjacency effects contamination. |
+| `bottom-depth`      | 2.16 | Indicates where available: The bottom depth referenced to the mean sea level for the oceans and referenced to mean levels for lakes. |
+| `brdf`              | 2.19 | Indicates which pixels are corrected for BRDF effects. |
+
+#### Bands
 
 **Deprecation Notice:** In this document we only refer to the new `bands` construct that will be introcued with STAC 1.1.
 For backward compatibility, it is recommended to also provide `eo:bands` and `raster:bands`.
 Please check the [Raster] and [Electro Optical] extensions for details.
 
-| Field Name | Req. | DDescription |
-| ---------- | ---- | ------------ |
-| nodata     | 2.2  | Value(s) for no-data. |
-| unit       | 3.1  | The unit of the values in the asset, preferably compliant to [UDUNITS-2] units (singular). |
+| Field Name             | Req.  | Description |
+| ---------------------- | ----- | ----------- |
+| nodata                 | 2.2   | **REQUIRED.** Value(s) for no-data. |
+| unit                   | 3.1   | The unit of the values in the asset, preferably compliant to [UDUNITS-2] units (singular). |
 | classification:classes | *n/a* | Lists the value that are in the file and describes their meaning. |
+
+For **data**:
+
+- It is **required** to provide the `name` and `eo:central_wavelength`.
+- For AR it is also **required** to provide `eo:full_width_half_max`.
+- Additional band information such as spectral response details are optional.
+- For ST the `unit` must be `kelvin`, for NLSR the `unit` is usually `nit`.
+
+For **metadata**:
+
+- It is **required** to provide the `name`.
 
 See the STAC [Bands] for further details.
-
-The following table lists properties that may occur in the assets.
-The list doesn't specify which fields apply to which asset and it also doesn't specify which fields are required.
-For those details please refer to the ["Additional properties" column in the table above](#assets).
-
-##### bands
-
-| Field Name             | Req.  | Description |
-| ---------------------- | ----- | ------------- |
-| data_type              | *n/a* | One of the [Data Types]. |
-| unit                   | *n/a* | The unit of the values in the asset, preferably compliant to [UDUNITS-2] units (singular). |
-| bits_per_sample        | *n/a* | Actual number of bits per sample (e.g., 8, 16, 32, ...) |
-| classification:classes | *n/a* | Lists the value that are in the file and describes their meaning. |
-| nodata                 | 2.2   | Value(s) for no-data. |
 
 ## Notes
 
@@ -458,9 +432,11 @@ Some additional notes on the requirements
 - Requirements 1.1, 1.2, and 2.1 are generally covered by implementing and publishing STAC metadata for the data.
 - 1.12 (AR): CEOS-ARD requires the number of bits.
   This is not reflected in the STAC profile and must be added by implementors manually
-  via the `bits_per_sample` property to be fully compliant
+  via the `raster:bits_per_sample` property to be fully compliant
   (unless CEOS-ARD gets updated as it looks like an error to us).
 - 2.13 (SR/NLSR): CEOS-ARD lists no specific metadata requirements.
+- 3.3 (ST) / 3.2 (SR/NLSR): It is not clear how the measurement uncertainty shall be provided.
+- 3.8, 3.9 and 3.13 (AR): It is not clear how the sun/sky glint correction target requirements and the turbid water correction shall be provided.
 - Requirement 4.1 lists no specific metadata requirements, but refers back to 1.x requirements.
 
 [CEOS-ARD product family specifications]: <http://ceos.org/ard/>
@@ -481,14 +457,12 @@ Some additional notes on the requirements
 [Collection Assets]: <https://github.com/radiantearth/stac-spec/tree/v1.0.0/collection-spec/collection-spec.md#assets>
 [Bands]: <https://github.com/radiantearth/stac-spec/blob/f9b3c59ba810541c9da70c5f8d39635f8cba7bcd/item-spec/common-metadata.md#bands>
 [Band Object]: <https://github.com/radiantearth/stac-spec/blob/f9b3c59ba810541c9da70c5f8d39635f8cba7bcd/item-spec/common-metadata.md#band-object>
-[Data Types]: <https://github.com/radiantearth/stac-spec/blob/f9b3c59ba810541c9da70c5f8d39635f8cba7bcd/item-spec/common-metadata.md#data-types>
 
 [Accuracy]: <https://github.com/stac-extensions/accuracy>
 [Authentication]: <https://github.com/stac-extensions/authentication>
 [Classification]: <https://github.com/stac-extensions/classification>
 [CEOS-ARD]: <https://github.com/stac-extensions/ceos-ard>
 [Electro Optical]: <https://github.com/stac-extensions/eo>
-[File]: <https://github.com/stac-extensions/file>
 [Processing]: <https://github.com/stac-extensions/processing>
 [Projection]: <https://github.com/stac-extensions/projection>
 [Raster]: <https://github.com/stac-extensions/raster>
