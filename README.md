@@ -11,7 +11,7 @@
 - **Owner**: @m-mohr
 
 This document explains the CEOS-ARD Extension to the [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification.
-It specifies how to create STAC Items and Collections that comply to the various CEOS-ARD product family specifications.
+It specifies how to create STAC Items and Collections that comply to the various [CEOS-ARD](https://ceos.org/ard/) product family specifications.
 
 It is planned that this extension supersedes the existing [CARD4L extension](https://github.com/stac-extensions/card4l),
 which itself is planned to be deprecated. **WORK IN PROGRESS**
