@@ -13,7 +13,7 @@ comply to the [CEOS-ARD product family specifications] (PFS) for optical sensors
 - [Aquatic Reflectance (AR), 1.0]
 - LiDAR Terrain and Canopy Top Height, draft
 - [Nighttime Lights Surface Radiance (NTSR), 1.0]
-- [Surface Reflectance (SR), v5.0]
+- [Surface Reflectance (SR), v5.0.1] (or [Surface Reflectance (SR), v5.0])
 - [Surface Temperature (ST), v5.0]
 
 **Additional resources:**
@@ -50,7 +50,7 @@ comply to the [CEOS-ARD product family specifications] (PFS) for optical sensors
 
 In general, the fields required in this extension are required to either meet
 the *minimum requirements (threshold)* by the CEOS-ARD specification *or* are required fields in STAC.
-Any additional optional field provided may lead to a higher percentage for the CEOS-ARD *desired requirements (target)*.
+Any additional optional field provided may lead to a higher percentage for the CEOS-ARD *desired requirements (target/goal)*.
 
 The column *Field Name* refers to the STAC field names. The column *Req.* refers to the requirement number in the CEOS-ARD specification.
 
@@ -443,6 +443,7 @@ Some additional notes on the requirements
 [Aquatic Reflectance (AR), 1.0]: <https://ceos.org/ard/files/PFS/AR/v1.0/CARD4L_Product_Family_Specification_Aquatic_Reflectance-v1.0.pdf>
 [Nighttime Lights Surface Radiance (NTSR), 1.0]: <https://ceos.org/ard/files/PFS/NLSR/v1.0/CARD4L_Product_Family_Specification_Nighttime_Light_Radiance-v1.0.pdf>
 [Surface Reflectance (SR), v5.0]: <https://ceos.org/ard/files/PFS/SR/v5.0/CARD4L_Product_Family_Specification_Surface_Reflectance-v5.0.pdf>
+[Surface Reflectance (SR), v5.0.1]: <https://ceos.org/ard/files/PFS/SR/v5.0.1/CEOS-ARD_Product_Family_Specification_Surface_Reflectance-v5.0.1.pdf>
 [Surface Temperature (ST), v5.0]: <https://ceos.org/ard/files/PFS/ST/v5.0/CARD4L_Product_Family_Specification_Surface_Temperature-v5.0.pdf>
 
 [CEOS Missions Database]: <https://database.eohandbook.com/database/missiontable.aspx>

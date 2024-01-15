@@ -42,10 +42,10 @@ The following combinations of values are supported for the fields above:
 
 | PFS                                               | `ceos_ard:type` | `ceos_ard:specification` | `ceos_ard:specification_version` | STAC Status |
 | ------------------------------------------------- | --------------- | ------------------------ | -------------------------------- | ----------- |
-| Surface Reflectance                               | `optical`       | `SR`                     | `5.0`                            | Stable      |
-| Surface Temperature                               | `optical`       | `ST`                     | `5.0`                            | Stable      |
-| Aquatic Reflectance                               | `optical`       | `AR`                     | `1.0`                            | WIP         |
-| Nighttime Lights Surface Radiance                 | `optical`       | `NLSR`                   | `1.0`                            | WIP         |
+| Surface Reflectance                               | `optical`       | `SR`                     | `5.0` / `5.0.1`                  | Proposal    |
+| Surface Temperature                               | `optical`       | `ST`                     | `5.0`                            | Proposal    |
+| Aquatic Reflectance                               | `optical`       | `AR`                     | `1.0`                            | Proposal    |
+| Nighttime Lights Surface Radiance                 | `optical`       | `NLSR`                   | `1.0`                            | Proposal    |
 | LiDAR Terrain and Canopy Top Height               | `optical`       | `LIDAR-TCTH`             | *Unreleased*                     | Reserved    |
 | Combined SAR: Normalised Radar Backscatter (NRB)  | `radar`         | `NRB`                    | `1.0`                            | WIP         |
 | Combined SAR: Polarimetric Radar (POL)            | `radar`         | `POL`                    | `1.0`                            | WIP         |
