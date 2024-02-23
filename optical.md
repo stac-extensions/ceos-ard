@@ -38,7 +38,6 @@ comply to the [CEOS-ARD product family specifications] (PFS) for optical sensors
   - [Processing](#processing)
   - [Projection](#projection)
   - [View](#view)
-  - [Custom Fields](#custom-fields)
   - [Links](#links)
   - [Assets](#assets)
     - [Data](#data)
@@ -206,15 +205,6 @@ The requirements regarding solar, lunar and viewing geometry have different requ
 - ST: 2.8
 
 If provided, all values **must** be in degrees.
-
-### Custom Fields
-
-The following fields are not defined in a STAC extension yet,
-but we'd like to propose them to the STAC community:
-
-| Field Name        | Data Type | Req.        | Description |
-| ----------------- | --------- | ----------- | ----------- |
-| moon:illumination | number    | 2.14 (NLSR) | **REQUIRED for NLSR.** The average moon illumination, in %. |
 
 ### Links
 
@@ -411,6 +401,7 @@ Please check the [Raster] and [Electro Optical] extensions for details.
 | nodata                 | 2.2   | **REQUIRED.** Value(s) for no-data. |
 | unit                   | 3.1   | The unit of the values in the asset, preferably compliant to [UDUNITS-2] units (singular). |
 | classification:classes | *n/a* | Lists the value that are in the file and describes their meaning. |
+| lunar_illumination     | 2.14 (NLSR) | **REQUIRED for NLSR.** The average moon illumination, in %. [**TBD**](https://github.com/stac-extensions/eo/issues/31) |
 
 For **data**:
 
