@@ -36,8 +36,8 @@ This extension doesn't define new STAC fields, it's just a profile that uses
 - [STAC Extensions](#stac-extensions)
 - [STAC Collections](#stac-collections)
 - [STAC Items](#stac-items)
-  - [CEOS-ARD](#ceos-ard)
   - [Common Metadata](#common-metadata)
+- [Links](#links)
 - [Notes](#notes)
 
 ## Document Structure
@@ -54,11 +54,11 @@ This extension doesn't define new STAC fields, it's just a profile that uses
 
 ## STAC Items
 
-### CEOS-ARD
-
-See the separate [CEOS-ARD extension README](README.md#fields) for details.
-
 ### Common Metadata
+
+...
+
+## Links
 
 ...
 

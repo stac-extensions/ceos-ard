@@ -4,7 +4,6 @@
 - **Identifier:**
   - <https://stac-extensions.github.io/ceos-ard/v0.2.0/schema.json>
   - See section [Profiles](#profiles) for more
-
 - **Field Name Prefix:** ceos_ard
 - **Scope:** Item, Collection
 - **Extension [Maturity Classification](https://github.com/radiantearth/stac-spec/tree/master/extensions/README.md#extension-maturity):** Proposal
@@ -17,10 +16,10 @@ It is planned that this extension supersedes the existing [CARD4L extension](htt
 which itself is planned to be deprecated. **WORK IN PROGRESS**
 
 - Examples:
-  - [Item example](examples/item.json): Shows the basic usage of the extension in a STAC Item (ToDo)
-  - [Collection example](examples/collection.json): Shows the basic usage of the extension in a STAC Collection (ToDo)
-- [JSON Schema](json-schema/schema.json) (ToDo)
-- [Changelog](./CHANGELOG.md) (ToDo)
+  - [Collection example](examples/optical-sr/collection.json): A STAC Collection for a Sentinel-2 L2A data using the STAC CEOS ARD Optical profile
+  - [Item example](examples/optical-sr/item.json): An examplary Item for the Sentinel-2 L2A Collection
+- [JSON Schema](json-schema/schema.json)
+- [Changelog](./CHANGELOG.md)
 
 ## Fields
 
@@ -31,6 +30,9 @@ The fields in the table below can be used in these parts of STAC documents:
 - [x] Item Properties (incl. Summaries in Collections)
 - [ ] Assets (for both Collections and Items, incl. Item Asset Definitions in Collections)
 - [ ] Links
+
+The fields don't need to be provided in each Item to minimize the required changes in the Items.
+The fields can be provided in the Items to make the fields available in search.
 
 | Field Name                     | Data Type | Description |
 | ------------------------------ | --------- | ----------- |

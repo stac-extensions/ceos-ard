@@ -1,7 +1,11 @@
 # CEOS-ARD for Optical data <!-- omit in toc -->
 
 - **Title:** CEOS-ARD for Optical
-- **Identifier:** <https://stac-extensions.github.io/ceos-ard/v0.2.0/optical.json>
+- **Identifier:**
+  - AR: <https://stac-extensions.github.io/ceos-ard/v0.2.0/optical-ar/schema.json>
+  - NLSR: <https://stac-extensions.github.io/ceos-ard/v0.2.0/optical-nlsr/schema.json>
+  - SR: <https://stac-extensions.github.io/ceos-ard/v0.2.0/optical-sr/schema.json>
+  - ST: <https://stac-extensions.github.io/ceos-ard/v0.2.0/optical-st/schema.json>
 - **Field Name Prefix:** -
 - **Scope:** Item
 - **Extension [Maturity Classification]:** Proposal
@@ -18,12 +22,14 @@ comply to the [CEOS-ARD product family specifications] (PFS) for optical sensors
 
 **Additional resources:**
 
-- Examples (ToDo)
-- JSON Schema (ToDo)
-  
-  *Please note that the schema gives only a first indication on whether your metadata is correctly formatted
-   as we can't provide a full schema for validation at the moment.*
-  *For example, the assets are not fully validated yet. Passing the schema also does not imply that you are CEOS-ARD compliant!*
+- Examples:
+  - [Collection example](examples/optical-sr/collection.json): A STAC Collection for a Sentinel-2 L2A data using the STAC CEOS ARD Optical profile
+  - [Item example](examples/optical-sr/item.json): An examplary Item for the Sentinel-2 L2A Collection
+- JSON Schema:
+  - [AR](json-schema/optical-ar/schema.json) (ToDo)
+  - [NLSR](json-schema/optical-nlsr/schema.json) (ToDo)
+  - [SR](json-schema/optical-sr/schema.json) (ToDo)
+  - [ST](json-schema/optical-st/schema.json) (ToDo)
 
 **Table of Contents:**
 
@@ -31,18 +37,17 @@ comply to the [CEOS-ARD product family specifications] (PFS) for optical sensors
 - [STAC Extensions](#stac-extensions)
 - [STAC Collections](#stac-collections)
 - [STAC Items](#stac-items)
-  - [CEOS-ARD](#ceos-ard)
   - [Common Metadata](#common-metadata)
   - [Accuracy](#accuracy)
   - [EO (Electro-Optical)](#eo-electro-optical)
   - [Processing](#processing)
   - [Projection](#projection)
   - [View](#view)
-  - [Links](#links)
   - [Assets](#assets)
     - [Data](#data)
     - [Per-Pixel Metadata](#per-pixel-metadata)
     - [Bands](#bands)
+- [Links](#links)
 - [Notes](#notes)
 
 ## Document Structure
@@ -53,21 +58,34 @@ Any additional optional field provided may lead to a higher percentage for the C
 
 The column *Field Name* refers to the STAC field names. The column *Req.* refers to the requirement number in the CEOS-ARD specification.
 
+CEOS ARD requirements 1.1, 1.2, and 2.1 are generally covered by implementing and publishing STAC metadata for the data.
+
 ## STAC Extensions
 
 This profile doesn't define new STAC fields, it's just a profile that uses
 [existing STAC extensions](#stac-extensions) to map and fulfill the CEOS-ARD requirements.
 
-| Name              | Schema URI for `stac_extensions` | Required |
-| ----------------- | -------------------------------- | -------- |
-| [Accuracy]        | `https://stac-extensions.github.io/accuracy/v1.0.0-beta.1/schema.json`  | ✗ |
-| [CEOS-ARD]        | `https://stac-extensions.github.io/ceos-ard/v0.2.0/optical/schema.json` | ✓ |
-| [Classification]  | `https://stac-extensions.github.io/classification/v1.1.0/schema.json`   | ✗ |
-| [Electro Optical] | `https://stac-extensions.github.io/eo/v2.0.0/schema.json`               | ✓ |
-| [Processing]      | `https://stac-extensions.github.io/processing/v1.1.0/schema.json`       | ✗ |
-| [Projection]      | `https://stac-extensions.github.io/projection/v1.0.0/schema.json`       | ✓ |
-| [Raster]          | `https://stac-extensions.github.io/raster/v2.0.0/schema.json`           | ✓ |
-| [View Geometry]   | `https://stac-extensions.github.io/view/v1.1.0/schema.json`             | ✓ |
+As the identifier for this profile is just a collection of existing extensions and only defines required fields,
+you get a good bit of validation already without providing the identifier/schema of this profile in `stac_extensions`.
+If your metadata is already compliant to this profile, you can omit the identifier for this profile in
+`stac_extensions` to avoid costly regeneration of the Items. You won't get validation whether all required 
+fields are present, but this could be checked manually in the CEOS assessment/review.
+
+The following STAC extensions are relevant for this profile:
+
+| Name              | Schema URI for `stac_extensions`                                        | Required |
+| ----------------- | ----------------------------------------------------------------------- | :------: |
+| [Accuracy]        | `https://stac-extensions.github.io/accuracy/v1.0.0-beta.1/schema.json`  | ✗        |
+| [CEOS-ARD]        | `https://stac-extensions.github.io/ceos-ard/v0.2.0/optical/schema.json` | ✓        |
+| [Classification]  | `https://stac-extensions.github.io/classification/v1.1.0/schema.json`   | ✗        |
+| [Electro Optical] | `https://stac-extensions.github.io/eo/v2.0.0/schema.json`               | ✓        |
+| [Processing]      | `https://stac-extensions.github.io/processing/v1.1.0/schema.json`       | ✗        |
+| [Projection]      | `https://stac-extensions.github.io/projection/v1.0.0/schema.json`       | ✓        |
+| [Raster]          | `https://stac-extensions.github.io/raster/v2.0.0/schema.json`           | ✓        |
+| [View Geometry]   | `https://stac-extensions.github.io/view/v1.1.0/schema.json`             | ✓        |
+
+For details about the CEOS ARD extension, please see the separate [CEOS-ARD extension README](README.md#fields).
+The CEOS ARD extension fields can either be provided in the Collection or in the Items.
 
 ## STAC Collections
 
@@ -89,27 +107,21 @@ only additional requirements and mappings to fulfill the CEOS-ARD requirements a
 | stac_extensions | *n/a* | **REQUIRED.** Must contain [all STAC extensions](#stac-extensions) implemented. |
 | geometry        | 1.4   | **REQUIRED.** The geometry of the acquisition. |
 | bbox            | 1.4   | **REQUIRED.** The bounding box of the acquisition. |
-| links           | *n/a* | **REQUIRED.** Various specific links must be provided, see below for information about DOIs and relation types. |
 
 Generally, CEOS-ARD requests to provide DOIs for various resources.
 For STAC, DOIs (e.g. `10.1109/5.771073`) must be converted to URLs (e.g. `https://doi.org/10.1109/5.771073`).
 See [Resolve a DOI name](https://dx.doi.org/) for details.
 
-### CEOS-ARD
-
-See the separate [CEOS-ARD extension README](README.md#fields) for details.
-
 ### Common Metadata
 
-| Field Name     | Req.  | Description |
-| -------------- | ----- | ----------- |
-| license        | *n/a* | Recommended to be specified in a STAC Collection. |
-| datetime       | 1.3   | **REQUIRED.** The time of the acquisition, usually the central timestamp between `start_datetime` and `end_datetime`. |
-| start_datetime | 1.3   | Start time of the acquisition. |
-| end_datetime   | 1.3   | End time of the acquisition. |
-| instruments    | 1.9   | **REQUIRED.** Instruments in lower-case. |
-| constellation  | 1.9   | Constellation name in lower-case. |
-| platform       | 1.9   | Platform (mission) name in lower-case. |
+| Field Name     | Req. | Description |
+| -------------- | ---- | ----------- |
+| datetime       | 1.3  | **REQUIRED.** The time of the acquisition, usually the central timestamp between `start_datetime` and `end_datetime`. |
+| start_datetime | 1.3  | Start time of the acquisition. |
+| end_datetime   | 1.3  | End time of the acquisition. |
+| instruments    | 1.9  | **REQUIRED.** Instruments in lower-case. |
+| constellation  | 1.9  | Constellation name in lower-case. |
+| platform       | 1.9  | Platform (mission) name in lower-case. |
 
 Requirement 1.9 asks to provide links to:
 - [CEOS Missions Database] record(s)
@@ -128,7 +140,7 @@ The following fields may be provided:
 | accuracy:geometric_x_stddev | 1.8  | An estimate of the eastern geometric accuracy: Standard deviation, in meters. |
 | accuracy:geometric_rmse     | 1.8  | Radial root mean square error (rRMSE) for sub-sample accuracy, in meters. |
 
-The following links may be provided:
+The following links may be provided in the Collection or in the Items:
 
 | Relation Type   | Req. | Description |
 | --------------- | ---- | ----------- |
@@ -206,57 +218,6 @@ The requirements regarding solar, lunar and viewing geometry have different requ
 
 If provided, all values **must** be in degrees.
 
-### Links
-
-In addition to the links defined in specific extensions above, the following relation types may be used:
-
-| Relation Type | Req.      | Description |
-| ------------- | --------- | ----------- |
-| related       | 1.14      | URL to the sources of auxiliary data used in the generation process, ideally as STAC Items. |
-| describedby   | *various* | URL to documentation, see below for details. |
-
-#### related <!-- omit in toc -->
-
-Links to the sources of auxiliary data used in the generation process.
-This is **required** if auxiliary data is used in the generation process.
-Excludes DEMs and DSMs, which must use [separate relation types](#accuracy) instead.
-
-#### describedby <!-- omit in toc -->
-
-Various CEOS-ARD requirements ask for documentation about some specifics of the data. 
-Those links should use the relation type `describedby` and have a clear title that clearly gives information about what the link documents.
-Although we recommend to use `describedby` as relation type,
-implementors can choose to use another relation type such as `about` if it suits their implementation better.
-The requested documentation can in principle all be available through a single link, 
-so you don't necessarily need to provide one link per bullet point.
-
-The following links are **required**:
-- 3.2 (ST): Documentation about corrections for atmosphere and emissivity.
-- 3.4 (AR): Documentation about the atmospheric reflectance correction.
-- 3.4 (SR): Documentation about the directional atmospheric scattering algorithms.
-- 3.4 (NLSR): Documentation about the atmospheric corrections.
-- 3.5 (AR/SR): Documentation about the water vapour corrections.
-- 3.5 (NLSR): Documentation about the lunar radiance corrections.
-- 3.6 (AR): Documentation about the ozone corrections.
-- 3.6 (NLSR): Documentation about the stray light corrections.
-- 3.7 (AR): Documentation about other trace faseous absorption corrections.
-
-The following links are **optional**:
-- 1.7 (all): Geometric Correction algorithm details.
-- 1.8 (all): Description of the assessed geometric accuracy of the data.
-- 1.11 (all): Instrument / sensor calibration parameters.
-- 1.12 (all): Description of the assessed absolute radiometric uncertainty of the data.
-- 1.17 (all) / 2.5 (all): Documentation about the cloud detection.
-- 1.17 (all) / 2.6 (all): Documentation about the cloud shadow detection.
-- 1.17 (all) / 2.7 (ST) / 2.8 (AR/NLSR/SR): Documentation about the (snow and) ice mask.
-- 2.7 (AR/NLSR/SR): Documentation about the land and water mask.
-- 3.2 (AR/SR/NLSR): Information about the measurement uncertainty.
-- 3.3 (AR/SR/NLSR): Documentation about measurement normalization.
-- 3.6 (SR): Documentation about the ozone corrections.
-- 3.11 (AR): Information on adjacency effect correction.
-- 3.12 (AR): Information on floating vegetation/surface scum water mask and/or correction
-- 3.13 (AR): Information on turbid water mask and/or correction
-
 ### Assets
 
 **Data Access:** Requirement 1.16 **requires** information about data access.
@@ -264,7 +225,7 @@ This requirement is automatically fulfilled by STAC if the referenced assets are
 If authentication or other steps are required to access the data, this should at least be described in the Collection or Item description.
 For a more machine-readable way implementors could also use other means, such as the [Authentication] extension.
 
-**Roles:**: The role names specify the values to be used in the Asset's `roles`.
+**Roles:** The role names specify the values to be used in the Asset's `roles`.
 Each of the assets can either be exposed individually or grouped together in any form.
 In the latter case the role names can simply be merged to a set of unique role names.
 Roles can also be combined for a single file.
@@ -292,7 +253,7 @@ This section describes required and optional per-pixel metadata.
 Per-pixel metadata can be encoded in different way, for example:
 1. multiple files with a mask per file (only requires the corresponding roles to be set, see below)
 2. a single file with a mask per band (requires `bands`, see [Bands] in [Common metadata])
-3. a single-band file with masks as bit-fields (requires `classification:bitfields`, see [Classification] extension)
+3. a single-band file with masks as bit-fields (requires one of the fields in the [Classification] extension)
 
 In any way, the per-pixel metadata and its values must be clearly identifiable, e.g. by providing 
 clear titles, roles, band information, bitfields, classes, and/or unit  where applicable.
@@ -396,11 +357,11 @@ The following assets are **optional** for **AR**:
 For backward compatibility, it is recommended to also provide `eo:bands` and `raster:bands`.
 Please check the [Raster] and [Electro Optical] extensions for details.
 
-| Field Name             | Req.  | Description |
-| ---------------------- | ----- | ----------- |
-| nodata                 | 2.2   | **REQUIRED.** Value(s) for no-data. |
-| unit                   | 3.1   | The unit of the values in the asset, preferably compliant to [UDUNITS-2] units (singular). |
-| classification:classes | *n/a* | Lists the value that are in the file and describes their meaning. |
+| Field Name             | Req.        | Description |
+| ---------------------- | ----------- | ----------- |
+| nodata                 | 2.2         | **REQUIRED.** Value(s) for no-data. |
+| unit                   | 3.1         | The unit of the values in the asset, preferably compliant to [UDUNITS-2] units (singular). |
+| classification:classes | *n/a*       | Lists the value that are in the file and describes their meaning. |
 | lunar_illumination     | 2.14 (NLSR) | **REQUIRED for NLSR.** The average moon illumination, in %. [**TBD**](https://github.com/stac-extensions/eo/issues/31) |
 
 For **data**:
@@ -416,17 +377,69 @@ For **metadata**:
 
 See the STAC [Bands] for further details.
 
+## Links
+
+All links can be provided either in the Collection or in the Item,
+unless the links are specific for each Item and/or differ between the Items.
+If that's the case, they must be provided per Item.
+
+In addition to the links defined in specific extensions above, the relation types may listed in the table below can be used.
+
+| Relation Type | Req.      | Description |
+| ------------- | --------- | ----------- |
+| related       | 1.14      | URL to the sources of auxiliary data used in the generation process, ideally as STAC Items. |
+| describedby   | *various* | URL to documentation, see below for details. |
+
+### related <!-- omit in toc -->
+
+Links to the sources of auxiliary data used in the generation process.
+This is **required** if auxiliary data is used in the generation process.
+Excludes DEMs and DSMs, which must use [separate relation types](#accuracy) instead.
+
+### describedby <!-- omit in toc -->
+
+Various CEOS-ARD requirements ask for documentation about some specifics of the data. 
+Those links should use the relation type `describedby` and have a clear title that clearly gives information about what the link documents.
+Although we recommend to use `describedby` as relation type,
+implementors can choose to use another relation type such as `about` if it suits their implementation better.
+The requested documentation can in principle all be available through a single link, 
+so you don't necessarily need to provide one link per bullet point.
+
+The following links are **required**:
+- 3.2 (ST): Documentation about corrections for atmosphere and emissivity.
+- 3.4 (AR): Documentation about the atmospheric reflectance correction.
+- 3.4 (SR): Documentation about the directional atmospheric scattering algorithms.
+- 3.4 (NLSR): Documentation about the atmospheric corrections.
+- 3.5 (AR/SR): Documentation about the water vapour corrections.
+- 3.5 (NLSR): Documentation about the lunar radiance corrections.
+- 3.6 (AR): Documentation about the ozone corrections.
+- 3.6 (NLSR): Documentation about the stray light corrections.
+- 3.7 (AR): Documentation about other trace faseous absorption corrections.
+
+The following links are **optional**:
+- 1.7 (all): Geometric Correction algorithm details.
+- 1.8 (all): Description of the assessed geometric accuracy of the data.
+- 1.11 (all): Instrument / sensor calibration parameters.
+- 1.12 (all): Description of the assessed absolute radiometric uncertainty of the data.
+- 1.17 (all) / 2.5 (all): Documentation about the cloud detection.
+- 1.17 (all) / 2.6 (all): Documentation about the cloud shadow detection.
+- 1.17 (all) / 2.7 (ST) / 2.8 (AR/NLSR/SR): Documentation about the (snow and) ice mask.
+- 2.7 (AR/NLSR/SR): Documentation about the land and water mask.
+- 3.2 (AR/SR/NLSR): Information about the measurement uncertainty.
+- 3.3 (AR/SR/NLSR): Documentation about measurement normalization.
+- 3.6 (SR): Documentation about the ozone corrections.
+- 3.11 (AR): Information on adjacency effect correction.
+- 3.12 (AR): Information on floating vegetation/surface scum water mask and/or correction
+- 3.13 (AR): Information on turbid water mask and/or correction
+
 ## Notes
 
 Some additional notes on the requirements
 
-- Requirements 1.1, 1.2, and 2.1 are generally covered by implementing and publishing STAC metadata for the data.
 - 1.12 (AR): CEOS-ARD requires the number of bits.
   This is not reflected in the STAC profile and must be added by implementors manually
   via the `raster:bits_per_sample` property to be fully compliant
   (unless CEOS-ARD gets updated as it looks like an error to us).
-- 2.13 (SR/NLSR): CEOS-ARD lists no specific metadata requirements.
-- 3.3 (ST) / 3.2 (SR/NLSR): It is not clear how the measurement uncertainty shall be provided.
 - 3.8, 3.9 and 3.13 (AR): It is not clear how the sun/sky glint correction target requirements and the turbid water correction shall be provided.
 - Requirement 4.1 lists no specific metadata requirements, but refers back to 1.x requirements.
 

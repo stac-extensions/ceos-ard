@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://stac-extensions.github.io/ceos-ard/v0.2.0/optical-sr/schema.json",
+  "title": "CEOS-ARD Extension",
+  "description": "STAC CEOS-ARD Profile for Optical SR for STAC Items.",
+  "type": "object",
+  "required": [
+    "stac_extensions",
+    "type"
+  ],
+  "properties": {
+    "stac_extensions": {
+      "type": "array",
+      "contains": {
+        "const": "https://stac-extensions.github.io/ceos-ard/v0.2.0/optical-sr/schema.json"
+      },
+      "stac_extensions": {
+        "type": "string",
+        "const": "Feature"
+      }
+    }
+  }
+}

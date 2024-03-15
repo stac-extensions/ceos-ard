@@ -3,130 +3,76 @@
   "$id": "https://stac-extensions.github.io/ceos-ard/v0.2.0/schema.json",
   "title": "CEOS-ARD Extension",
   "description": "STAC CEOS-ARD Extension for STAC Items and STAC Collections.",
+  "type": "object",
+  "required": [
+    "stac_extensions"
+  ],
+  "properties": {
+    "stac_extensions": {
+      "type": "array",
+      "contains": {
+        "const": "https://stac-extensions.github.io/ceos-ard/v0.2.0/schema.json"
+      }
+    }
+  },
   "oneOf": [
     {
-      "$comment": "This is the schema for STAC Items. Remove this object if this extension only applies to Collections.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/stac_extensions"
-        },
-        {
-          "type": "object",
-          "required": [
-            "type",
-            "properties",
-            "assets"
-          ],
-          "properties": {
-            "type": {
-              "const": "Feature"
-            },
-            "properties": {
-              "allOf": [
-                {
-                  "$comment": "Require fields here for Item Properties.",
-                  "required": [
-                    "ceos_ard:specification",
-                    "ceos_ard:specification_version"
-                  ]
-                },
-                {
-                  "$ref": "#/definitions/fields"
-                }
-              ]
-            },
-            "assets": {
-              "$comment": "This validates the fields in Item Assets, but does not require them.",
-              "type": "object",
-              "additionalProperties": {
-                "$ref": "#/definitions/fields"
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "$comment": "This is the schema for STAC Collections.",
+      "$comment": "This is the schema for STAC Items.",
       "type": "object",
-      "allOf": [
-        {
-          "required": [
-            "type"
-          ],
-          "properties": {
-            "type": {
-              "const": "Collection"
-            }
-          }
-        },
-        {
-          "$ref": "#/definitions/stac_extensions"
-        }
+      "required": [
+        "type",
+        "properties",
+        "assets"
       ],
-      "anyOf": [
-        {
-          "$comment": "This is the schema for the top-level fields in a Collection. Remove this if this extension does not define top-level fields for Collections.",
+      "properties": {
+        "type": {
+          "const": "Feature"
+        },
+        "properties": {
+          "$comment": "Require fields here for Item Properties.",
+          "required": [
+            "ceos_ard:type",
+            "ceos_ard:specification",
+            "ceos_ard:specification_version"
+          ],
           "allOf": [
-            {
-              "$comment": "Require fields here for Collections (top-level).",
-              "required": [
-                "ceos_ard:specification",
-                "ceos_ard:specification_version"
-              ]
-            },
             {
               "$ref": "#/definitions/fields"
             }
           ]
         },
+        "links": {
+          "$ref": "#/definitions/links"
+        }
+      }
+    },
+    {
+      "$comment": "This is the schema for STAC Collections.",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "const": "Collection"
+        }
+      },
+      "anyOf": [
         {
-          "$comment": "This validates the fields in Collection Assets, but does not require them.",
+          "$comment": "This is the schema for the top-level fields in a Collection.",
           "required": [
-            "assets"
+            "ceos_ard:type",
+            "ceos_ard:specification",
+            "ceos_ard:specification_version"
           ],
-          "properties": {
-            "assets": {
-              "type": "object",
-              "not": {
-                "additionalProperties": {
-                  "not": {
-                    "allOf": [
-                      {
-                        "$ref": "#/definitions/require_any_field"
-                      },
-                      {
-                        "$ref": "#/definitions/fields"
-                      }
-                    ]
-                  }
-                }
-              }
+          "allOf": [
+            {
+              "$ref": "#/definitions/fields"
             }
-          }
-        },
-        {
-          "$comment": "This is the schema for the fields in Item Asset Definitions. It doesn't require any fields.",
-          "required": [
-            "item_assets"
           ],
           "properties": {
-            "item_assets": {
-              "type": "object",
-              "not": {
-                "additionalProperties": {
-                  "not": {
-                    "allOf": [
-                      {
-                        "$ref": "#/definitions/require_any_field"
-                      },
-                      {
-                        "$ref": "#/definitions/fields"
-                      }
-                    ]
-                  }
-                }
-              }
+            "links": {
+              "$ref": "#/definitions/links"
             }
           }
         },
@@ -137,7 +83,11 @@
           ],
           "properties": {
             "summaries": {
-              "$ref": "#/definitions/require_any_field"
+              "anyOf": [
+                {"required": ["ceos_ard:type"]},
+                {"required": ["ceos_ard:specification"]},
+                {"required": ["ceos_ard:specification_version"]}
+              ]
             }
           }
         }
@@ -145,49 +95,18 @@
     }
   ],
   "definitions": {
-    "stac_extensions": {
-      "type": "object",
-      "required": [
-        "stac_extensions"
-      ],
-      "properties": {
-        "stac_extensions": {
-          "type": "array",
-          "contains": {
-            "const": "https://stac-extensions.github.io/ceos-ard/v0.2.0/schema.json"
-          }
-        }
-      }
-    },
-    "require_any_field": {
-      "$comment": "Please list all fields here so that we can force the existence of one of them in other parts of the schemas.",
-      "anyOf": [
-        {"required": ["ceos_ard:specification"]},
-        {"required": ["ceos_ard:specification_version"]}
-      ]
-    },
     "fields": {
-      "$comment": "Add your new fields here. Don't require them here, do that above in the corresponding schema.",
       "type": "object",
       "properties": {
+        "ceos_ard:type": {
+          "type": "string"
+        },
         "ceos_ard:specification": {
-          "type": "string",
-          "enum": [
-            "optical-ar",
-            "optical-lidar-tcth",
-            "optical-sr",
-            "optical-st",
-            "radar-gslc",
-            "radar-insar",
-            "radar-nrb",
-            "radar-orb",
-            "radar-pr"
-          ]
+          "type": "string"
         },
         "ceos_ard:specification_version": {
           "type": "string",
-          "minLength": 1,
-          "pattern": "^\\d+\\.\\d+$"
+          "pattern": "^\\d+\\.\\d+(.\\d+)?$"
         }
       },
       "patternProperties": {
@@ -195,7 +114,66 @@
           "$comment": "Above, change `ceos_ard` to the prefix of this extension"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "ceos_ard:type": {
+              "type": "string",
+              "const": "optical"
+            },
+            "ceos_ard:specification": {
+              "type": "string",
+              "enum": [
+                "SR",
+                "ST",
+                "AR",
+                "NLSR"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "ceos_ard:type": {
+              "type": "string",
+              "const": "radar"
+            },
+            "ceos_ard:specification": {
+              "type": "string",
+              "enum": [
+                "NRB",
+                "POL",
+                "ORB",
+                "GSLC"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "links": {
+      "type": "array",
+      "contains": {
+        "type": "object",
+        "required": [
+          "rel",
+          "href"
+        ],
+        "properties": {
+          "rel": {
+            "type": "string",
+            "const": "ceos-ard-specification"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+              "application/pdf"
+            ]
+          }
+        }
+      }
     }
   }
 }
