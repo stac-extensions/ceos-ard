@@ -23,7 +23,7 @@ comply to the [CEOS-ARD product family specifications] (PFS) for optical sensors
 **Additional resources:**
 
 - Examples:
-  - [Collection example](examples/optical-sr/collection.json): A STAC Collection for a Sentinel-2 L2A data using the STAC CEOS ARD Optical profile
+  - [Collection example](examples/optical-sr/collection.json): A STAC Collection for a Sentinel-2 L2A data using the STAC CEOS-ARD Optical profile
   - [Item example](examples/optical-sr/item.json): An examplary Item for the Sentinel-2 L2A Collection
 - JSON Schema:
   - [AR](json-schema/optical-ar/schema.json) (ToDo)
@@ -58,7 +58,7 @@ Any additional optional field provided may lead to a higher percentage for the C
 
 The column *Field Name* refers to the STAC field names. The column *Req.* refers to the requirement number in the CEOS-ARD specification.
 
-CEOS ARD requirements 1.1, 1.2, and 2.1 are generally covered by implementing and publishing STAC metadata for the data.
+CEOS-ARD requirements 1.1, 1.2, and 2.1 are generally covered by implementing and publishing STAC metadata for the data.
 
 ## STAC Extensions
 
@@ -84,8 +84,8 @@ The following STAC extensions are relevant for this profile:
 | [Raster]          | `https://stac-extensions.github.io/raster/v2.0.0/schema.json`           | ✓        |
 | [View Geometry]   | `https://stac-extensions.github.io/view/v1.1.0/schema.json`             | ✓        |
 
-For details about the CEOS ARD extension, please see the separate [CEOS-ARD extension README](README.md#fields).
-The CEOS ARD extension fields can either be provided in the Collection or in the Items.
+For details about the CEOS-ARD extension, please see the separate [CEOS-ARD extension README](README.md#fields).
+The CEOS-ARD extension fields can either be provided in the Collection or in the Items.
 
 ## STAC Collections
 

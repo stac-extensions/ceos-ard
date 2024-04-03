@@ -16,7 +16,7 @@ It is planned that this extension supersedes the existing [CARD4L extension](htt
 which itself is planned to be deprecated. **WORK IN PROGRESS**
 
 - Examples:
-  - [Collection example](examples/optical-sr/collection.json): A STAC Collection for a Sentinel-2 L2A data using the STAC CEOS ARD Optical profile
+  - [Collection example](examples/optical-sr/collection.json): A STAC Collection for a Sentinel-2 L2A data using the STAC CEOS-ARD Optical profile
   - [Item example](examples/optical-sr/item.json): An examplary Item for the Sentinel-2 L2A Collection
 - [JSON Schema](json-schema/schema.json)
 - [Changelog](./CHANGELOG.md)

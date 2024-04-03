@@ -889,13 +889,13 @@
       "rel": "ceos-ard-specification",
       "type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       "href": "https://ceos.org/ard/files/PFS/SR/v5.0.1/CEOS-ARD_Product_Family_Specification_Surface_Reflectance-v5.0.1.docx",
-      "title": "CEOS ARD Product Specification for Surface Reflectance (Word)"
+      "title": "CEOS-ARD Product Specification for Surface Reflectance (Word)"
     },
     {
       "rel": "ceos-ard-specification",
       "type": "application/pdf",
       "href": "https://ceos.org/ard/files/PFS/SR/v5.0.1/CEOS-ARD_Product_Family_Specification_Surface_Reflectance-v5.0.1.pdf",
-      "title": "CEOS ARD Product Specification for Surface Reflectance (PDF)"
+      "title": "CEOS-ARD Product Specification for Surface Reflectance (PDF)"
     }
   ]
 }
