@@ -21,9 +21,9 @@
     "ard",
     "ceos-ard"
   ],
-  "ceos_ard:type": "optical",
-  "ceos_ard:specification": "SR",
-  "ceos_ard:specification_version": "5.0.1",
+  "ceosard:type": "optical",
+  "ceosard:specification": "SR",
+  "ceosard:specification_version": "5.0.1",
   "sci:doi": "10.5270/s2_-znk9xsj",
   "extent": {
     "spatial": {

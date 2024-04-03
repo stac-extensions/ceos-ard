@@ -4,7 +4,7 @@
 - **Identifier:**
   - <https://stac-extensions.github.io/ceos-ard/v0.2.0/schema.json>
   - See section [Profiles](#profiles) for more
-- **Field Name Prefix:** ceos_ard
+- **Field Name Prefix:** ceosard
 - **Scope:** Item, Collection
 - **Extension [Maturity Classification](https://github.com/radiantearth/stac-spec/tree/master/extensions/README.md#extension-maturity):** Proposal
 - **Owner**: @m-mohr
@@ -36,13 +36,13 @@ The fields can be provided in the Items to make the fields available in search.
 
 | Field Name                     | Data Type | Description |
 | ------------------------------ | --------- | ----------- |
-| ceos_ard:type                  | string    | **REQUIRED.** The CEOS-ARD (sensor) type implemented, one of `optical` or `radar`. |
-| ceos_ard:specification         | string    | **REQUIRED.** The CEOS-ARD product family specification implemented. |
-| ceos_ard:specification_version | string    | **REQUIRED.** The CEOS-ARD product family specification version implemented. |
+| ceosard:type                  | string    | **REQUIRED.** The CEOS-ARD (sensor) type implemented, one of `optical` or `radar`. |
+| ceosard:specification         | string    | **REQUIRED.** The CEOS-ARD product family specification implemented. |
+| ceosard:specification_version | string    | **REQUIRED.** The CEOS-ARD product family specification version implemented. |
 
 The following combinations of values are supported for the fields above:
 
-| PFS                                               | `ceos_ard:type` | `ceos_ard:specification` | `ceos_ard:specification_version` | STAC Status |
+| PFS                                               | `ceosard:type` | `ceosard:specification` | `ceosard:specification_version` | STAC Status |
 | ------------------------------------------------- | --------------- | ------------------------ | -------------------------------- | ----------- |
 | Surface Reflectance                               | `optical`       | `SR`                     | `5.0` / `5.0.1`                  | Proposal    |
 | Surface Temperature                               | `optical`       | `ST`                     | `5.0`                            | Proposal    |

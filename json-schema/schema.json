@@ -31,9 +31,9 @@
         "properties": {
           "$comment": "Require fields here for Item Properties.",
           "required": [
-            "ceos_ard:type",
-            "ceos_ard:specification",
-            "ceos_ard:specification_version"
+            "ceosard:type",
+            "ceosard:specification",
+            "ceosard:specification_version"
           ],
           "allOf": [
             {
@@ -61,9 +61,9 @@
         {
           "$comment": "This is the schema for the top-level fields in a Collection.",
           "required": [
-            "ceos_ard:type",
-            "ceos_ard:specification",
-            "ceos_ard:specification_version"
+            "ceosard:type",
+            "ceosard:specification",
+            "ceosard:specification_version"
           ],
           "allOf": [
             {
@@ -84,9 +84,9 @@
           "properties": {
             "summaries": {
               "anyOf": [
-                {"required": ["ceos_ard:type"]},
-                {"required": ["ceos_ard:specification"]},
-                {"required": ["ceos_ard:specification_version"]}
+                {"required": ["ceosard:type"]},
+                {"required": ["ceosard:specification"]},
+                {"required": ["ceosard:specification_version"]}
               ]
             }
           }
@@ -98,31 +98,31 @@
     "fields": {
       "type": "object",
       "properties": {
-        "ceos_ard:type": {
+        "ceosard:type": {
           "type": "string"
         },
-        "ceos_ard:specification": {
+        "ceosard:specification": {
           "type": "string"
         },
-        "ceos_ard:specification_version": {
+        "ceosard:specification_version": {
           "type": "string",
           "pattern": "^\\d+\\.\\d+(.\\d+)?$"
         }
       },
       "patternProperties": {
-        "^(?!ceos_ard:)": {
-          "$comment": "Above, change `ceos_ard` to the prefix of this extension"
+        "^(?!ceosard:)": {
+          "$comment": "Above, change `ceosard` to the prefix of this extension"
         }
       },
       "additionalProperties": false,
       "oneOf": [
         {
           "properties": {
-            "ceos_ard:type": {
+            "ceosard:type": {
               "type": "string",
               "const": "optical"
             },
-            "ceos_ard:specification": {
+            "ceosard:specification": {
               "type": "string",
               "enum": [
                 "SR",
@@ -135,11 +135,11 @@
         },
         {
           "properties": {
-            "ceos_ard:type": {
+            "ceosard:type": {
               "type": "string",
               "const": "radar"
             },
-            "ceos_ard:specification": {
+            "ceosard:specification": {
               "type": "string",
               "enum": [
                 "NRB",
