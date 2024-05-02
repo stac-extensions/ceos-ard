@@ -20,6 +20,11 @@ comply to the [CEOS-ARD product family specifications] (PFS) for optical sensors
 - [Surface Reflectance (SR), v5.0.1] (or [Surface Reflectance (SR), v5.0])
 - [Surface Temperature (ST), v5.0]
 
+> \[!NOTE]  
+> This document is close to being completed,
+> we just await some further inputs from the CEOS ARD working group and the JSON Schemas are missing.
+> We encourage implementations and welcome feedback from early adopters.
+
 **Additional resources:**
 
 - Examples:
