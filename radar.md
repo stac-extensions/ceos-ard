@@ -1,9 +1,9 @@
-# CEOS-ARD for Radar data <!-- omit in toc -->
+# CEOS-ARD for Radar <!-- omit in toc -->
 
 - **Title:** CEOS-ARD for Radar
 - **Identifier:**
   - Product: <https://stac-extensions.github.io/ceos-ard/v0.2.0/radar/product.json>
-  - Source(s): <https://stac-extensions.github.io/ceos-ard/v0.2.0/radar/source.json>
+  - Source(s): see [Source Data](radar-source.md)
 - **Field Name Prefix:** -
 - **Scope:** Item
 - **Extension [Maturity Classification]:** Proposal
@@ -39,11 +39,7 @@ and includes the specifications for:
   - [Projection](#projection)
   - [Links](#links)
 - [STAC Items (Source Data)](#stac-items-source-data)
-  - [Extensions](#extensions-1)
-  - [Common Metadata](#common-metadata-1)
-  - [Assets](#assets)
-    - [Data](#data)
-- [Notes](#notes)
+- [Notes / ToDo](#notes--todo)
 
 ## Document Structure
 
@@ -96,8 +92,8 @@ only additional requirements and mappings to fulfill the CEOS-ARD requirements a
 
 | Field Name      | Req.  | Description                                                  |
 | --------------- | ----- | ------------------------------------------------------------ |
-| stac_extensions | *n/a* | **REQUIRED.** Must contain [all STAC extensions](#stac-extensions) implemented. |
-| geometry        | 1.4   | **REQUIRED.** The geometry of the acquisition.               |
+| stac_extensions | *n/a* | **REQUIRED.** Must contain [all implemented STAC extensions](#stac-extensions). |
+| geometry        | 1.4   | **REQUIRED.** The geometry of the acquisition in WGS84.      |
 | bbox            | 1.7.8 | **REQUIRED.** The bounding box of the acquisition in WGS84.  |
 
 Generally, CEOS-ARD requests to provide DOIs for various resources.
@@ -106,7 +102,7 @@ See [Resolve a DOI name](https://dx.doi.org/) for details.
 
 ### Extensions
 
-The following STAC extensions are relevant for the product Items:
+The following [STAC extensions](#stac-extensions) are relevant for the product Items:
 
 | Name         | Required |
 | ------------ | :------: |
@@ -129,11 +125,11 @@ The fields can be provided either in the [Collection](#stac-collections) or in e
 
 ### Projection
 
-The metadata is **required** to specify the coordinate reference system (1.5) and the map projection (1.6) through
-either `proj:epsg` or one of the alternatives. The map projection is not required for ST.
+The metadata is **required** to specify the coordinate reference system through either `proj:epsg` or one of the alternatives.
 
-**Deprecation Notice:** In a future version of the version of the projection extension `proj:epsg` will be replaced by `proj:code`.
-It is recommended to provide both for now.
+> \[!WARNING]  
+> **Deprecation Notice:** In a future version of the version of the projection extension `proj:epsg` will be replaced by `proj:code`.
+> It is recommended to provide both for now.
 
 | Field Name                            | Req.   | Description                                                  |
 | ------------------------------------- | ------ | ------------------------------------------------------------ |
@@ -154,73 +150,12 @@ In addition to the links defined in specific extensions above, the following rel
 
 ## STAC Items (Source Data)
 
-STAC Items must always be valid, but not all STAC Item requirements are covered here,
-only additional requirements and mappings to fulfill the CEOS-ARD requirements are listed here:
+The specification for STAC Items that cover the source data, please see the "CEOS ARD for Radar - Source Data" specification
 
-| Field Name      | Req.  | Description                                                  |
-| --------------- | ----- | ------------------------------------------------------------ |
-| stac_extensions | *n/a* | **REQUIRED.** Must contain [all STAC extensions](#stac-extensions) implemented. |
-| geometry        | 1.4   | **REQUIRED.** The geometry of the acquisition.               |
-| bbox            | ?     | **REQUIRED.** The bounding box of the acquisition in WGS84.  |
-
-Generally, CEOS-ARD requests to provide DOIs for various resources.
-For STAC, DOIs (e.g. `10.1109/5.771073`) must be converted to URLs (e.g. `https://doi.org/10.1109/5.771073`).
-See [Resolve a DOI name](https://dx.doi.org/) for details.
-
-### Extensions
-
-The following STAC extensions are relevant for the product Items:
-
-| Name       | Required |
-| ---------- | :------: |
-| [CEOS-ARD] |    ✓     |
-
-Providing the CEOS-ARD [fields](README.md#fields) and [links](README.md#relation-types) fulfills req. 1.3 and 1.4.
-The fields can be provided either in the [Collection](#stac-collections) or in each Item.
-
-### Common Metadata
-
-| Field Name  | Req.  | Description                                                  |
-| ----------- | ----- | ------------------------------------------------------------ |
-| datetime    | 1.6.3 | **REQUIRED.** The start date and time of the source data. Can also be expressed as `start_datetime` and `end_datetime` instead. |
-| instruments | 1.6.2 | **REQUIRED.** Instruments in lower-case.                     |
-| platform    | 1.6.2 | **REQUIRED.** Satellite name in lower-case.                  |
-
-Requirement 1.6.2 asks to provide links to:
-- [CEOS Missions Database] record(s)
-- [CEOS Instruments Database] record(s)
-- [CEOS Measurements Database] record(s)
-
-### Assets
-
-**Data Access:** Requirement 1.6.1 **requires** information about data access.
-This requirement is automatically fulfilled by STAC if the referenced assets are publicly accessible.
-If authentication or other steps are required to access the data, this should at least be described in the Collection or Item description.
-For a more machine-readable way implementors could also use other means, such as the [Authentication] extension.
-
-**Roles:** The role names specify the values to be used in the Asset's `roles`.
-Each of the assets can either be exposed individually or grouped together in any form.
-In the latter case the role names can simply be merged to a set of unique role names.
-Roles can also be combined for a single file.
-
-#### Data
-
-For non-metadata requirements that refer to how the data must be created and processed
-please consult the relevant CEOS-ARD specification.
-There can be one or multiple data assets per acquisition.
-
-For data assets, the following properties are relavant in the context of CEOS-ARD:
-
-| Field Name | Req.      | Description                                                  |
-| ---------- | --------- | ------------------------------------------------------------ |
-| roles      | *various* | **REQUIRED.** All data assets must to include the `data` role. |
-
-## Notes
+## Notes / ToDo
 
 - Req. 1.5 / 1.6 / 2.8: It is not clear how to specify the Acquisition ID Image
   as the `derived_from` links don't contain a numeric indice. See also [#26].
-
-...
 
 [#26]: <https://github.com/libbyrose/ceos-ard/issues/26>
 
