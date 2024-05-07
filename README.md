@@ -34,8 +34,8 @@ The fields in the table below can be used in these parts of STAC documents:
 The fields don't need to be provided in each Item to minimize the required changes in the Items.
 The fields can be provided in the Items to make the fields available in search.
 
-| Field Name                     | Data Type | Description |
-| ------------------------------ | --------- | ----------- |
+| Field Name                    | Data Type | Description |
+| ----------------------------- | --------- | ----------- |
 | ceosard:type                  | string    | **REQUIRED.** The CEOS-ARD (sensor) type implemented, one of `optical` or `radar`. |
 | ceosard:specification         | string    | **REQUIRED.** The CEOS-ARD product family specification implemented. |
 | ceosard:specification_version | string    | **REQUIRED.** The CEOS-ARD product family specification version implemented. |
@@ -66,12 +66,12 @@ One of the profiles above must be implemented.
 
 ## Relation types
 
-The following types should be used as applicable `rel` types in the
+The following types must be used as applicable `rel` types in the
 [Link Object](https://github.com/radiantearth/stac-spec/tree/master/item-spec/item-spec.md#link-object).
 
 | Type                   | Description |
 | ---------------------- | ----------- |
-| ceos-ard-specification | *n/a* | **REQUIRED.** Provides at least one link to the CEOS-ARD specification document. Word (media type: `application/vnd.openxmlformats-officedocument.wordprocessingml.document`) and/or PDF (media type: `application/pdf`). |
+| ceos-ard-specification | **REQUIRED.** Provides at least one link to the applicable CEOS-ARD specification document. Word (media type: `application/vnd.openxmlformats-officedocument.wordprocessingml.document`) and/or PDF (media type: `application/pdf`). |
 
 ## Contributing
 
