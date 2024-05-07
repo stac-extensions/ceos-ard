@@ -1,4 +1,4 @@
-# CEOS-ARD for Optical data <!-- omit in toc -->
+# CEOS-ARD for Optical <!-- omit in toc -->
 
 - **Title:** CEOS-ARD for Optical
 - **Identifier:**
@@ -109,9 +109,9 @@ only additional requirements and mappings to fulfill the CEOS-ARD requirements a
 
 | Field Name      | Req.  | Description |
 | --------------- | ----- | ----------- |
-| stac_extensions | *n/a* | **REQUIRED.** Must contain [all STAC extensions](#stac-extensions) implemented. |
-| geometry        | 1.4   | **REQUIRED.** The geometry of the acquisition. |
-| bbox            | 1.4   | **REQUIRED.** The bounding box of the acquisition. |
+| stac_extensions | *n/a* | **REQUIRED.** Must contain [all implemented STAC extensions](#stac-extensions). |
+| geometry        | 1.4   | **REQUIRED.** The geometry of the acquisition in WGS84. |
+| bbox            | 1.4   | **REQUIRED.** The bounding box of the acquisition in WGS84. |
 
 Generally, CEOS-ARD requests to provide DOIs for various resources.
 For STAC, DOIs (e.g. `10.1109/5.771073`) must be converted to URLs (e.g. `https://doi.org/10.1109/5.771073`).
@@ -197,8 +197,9 @@ The following links may be provided:
 The metadata is **required** to specify the coordinate reference system (1.5) and the map projection (1.6) through
 either `proj:epsg` or one of the alternatives. The map projection is not required for ST.
 
-**Deprecation Notice:** In a future version of the version of the projection extension `proj:epsg` will be replaced by `proj:code`.
-It is recommended to provide both for now.
+> \[!WARNING]  
+> **Deprecation Notice:** In a future version of the version of the projection extension `proj:epsg` will be replaced by `proj:code`.
+> It is recommended to provide both for now.
 
 | Field Name                            | Req.      | Description                                                  |
 | ------------------------------------- | --------- | ------------------------------------------------------------ |
@@ -388,7 +389,7 @@ All links can be provided either in the Collection or in the Item,
 unless the links are specific for each Item and/or differ between the Items.
 If that's the case, they must be provided per Item.
 
-In addition to the links defined in specific extensions above, the relation types may listed in the table below can be used.
+In addition to the links defined in specific extensions above, the relation types listed in the table below can be used.
 
 | Relation Type | Req.      | Description |
 | ------------- | --------- | ----------- |
