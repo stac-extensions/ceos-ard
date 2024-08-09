@@ -15,7 +15,7 @@ and includes the specifications for:
 - Geocoded Single-Look Complex (`GSLC`)
 
 > \[!NOTE]  
-> THis document is a draft and not finalized yet.
+> This document is a draft and not finalized yet.
 > We welcome feedback from early adopters.
 
 **Additional resources:**
@@ -153,24 +153,13 @@ The specification for STAC Items that cover the source data, please see the "CEO
 [CEOS-ARD product family specifications]: <http://ceos.org/ard/>
 [Combined CEOS-ARD for Synthetic Aperture Radar, version 1.0]: <https://ceos.org/ard/files/PFS/SAR/v1.0/CEOS-ARD_PFS_Synthetic_Aperture_Radar_v1.0.pdf>
 
-[CEOS Missions Database]: <https://database.eohandbook.com/database/missiontable.aspx>
-[CEOS Instruments Database]: <https://database.eohandbook.com/database/instrumenttable.aspx>
-[CEOS Measurements Database]: <https://database.eohandbook.com/measurements/overview.aspx>
-
 [STAC]: <https://github.com/radiantearth/stac-spec>
 [Maturity Classification]: <https://github.com/radiantearth/stac-spec/tree/master/extensions/README.md#extension-maturity>
-[Common metadata]: <https://github.com/radiantearth/stac-spec/tree/v1.0.0/item-spec/common-metadata.md>
-[Media Type]: <https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#asset-media-type>
 [Collection Summaries]: <https://github.com/radiantearth/stac-spec/tree/v1.0.0/collection-spec/collection-spec.md#collection-fields>
 [Collection Assets]: <https://github.com/radiantearth/stac-spec/tree/v1.0.0/collection-spec/collection-spec.md#assets>
 
-[Accuracy]: <https://github.com/stac-extensions/accuracy>
-[Authentication]: <https://github.com/stac-extensions/authentication>
-[Classification]: <https://github.com/stac-extensions/classification>
 [CEOS-ARD]: <https://github.com/stac-extensions/ceos-ard>
 [Processing]: <https://github.com/stac-extensions/processing>
 [Projection]: <https://github.com/stac-extensions/projection>
 [Raster]: <https://github.com/stac-extensions/raster>
 [SAR]: <https://github.com/stac-extensions/sar>
-
-[UDUNITS-2]: <https://ncics.org/portfolio/other-resources/udunits2/>

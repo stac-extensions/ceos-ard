@@ -12,7 +12,7 @@ comply to the [CEOS-ARD product family specifications] (PFS) for radar sensors.
 > which includes the specification for [Product Data](radar.md#stac-items-ard-product).
 
 > \[!NOTE]  
-> THis document is a draft and not finalized yet.
+> This document is a draft and not finalized yet.
 > We welcome feedback from early adopters.
 
 **Additional resources:**
@@ -166,6 +166,7 @@ For data assets, the following properties are relavant in the context of CEOS-AR
 [CEOS Measurements Database]: <https://database.eohandbook.com/measurements/overview.aspx>
 
 [STAC]: <https://github.com/radiantearth/stac-spec>
+[Maturity Classification]: <https://github.com/radiantearth/stac-spec/tree/master/extensions/README.md#extension-maturity>
 
 [Authentication]: <https://github.com/stac-extensions/authentication>
 [CEOS-ARD]: <https://github.com/stac-extensions/ceos-ard>
