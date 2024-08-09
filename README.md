@@ -1,9 +1,7 @@
 # CEOS-ARD Extension Specification
 
 - **Title:** CEOS-ARD
-- **Identifier:**
-  - <https://stac-extensions.github.io/ceos-ard/v0.2.0/schema.json>
-  - See section [Profiles](#profiles) for more
+- **Identifier:** <https://stac-extensions.github.io/ceos-ard/v0.2.0/schema.json>
 - **Field Name Prefix:** ceosard
 - **Scope:** Item, Collection
 - **Extension [Maturity Classification](https://github.com/radiantearth/stac-spec/tree/master/extensions/README.md#extension-maturity):** Proposal

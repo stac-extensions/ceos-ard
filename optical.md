@@ -1,13 +1,6 @@
 # CEOS-ARD for Optical <!-- omit in toc -->
 
-- **Title:** CEOS-ARD for Optical
-- **Identifier:**
-  - AR: <https://stac-extensions.github.io/ceos-ard/v0.2.0/optical-ar/schema.json>
-  - NLSR: <https://stac-extensions.github.io/ceos-ard/v0.2.0/optical-nlsr/schema.json>
-  - SR: <https://stac-extensions.github.io/ceos-ard/v0.2.0/optical-sr/schema.json>
-  - ST: <https://stac-extensions.github.io/ceos-ard/v0.2.0/optical-st/schema.json>
-- **Field Name Prefix:** -
-- **Scope:** Item
+- **Scope:** Item, Collection
 - **Extension [Maturity Classification]:** Proposal
 - **Owner**: @m-mohr
 
@@ -82,10 +75,10 @@ The following STAC extensions are relevant for this profile:
 | ----------------- | ----------------------------------------------------------------------- | :------: |
 | [Accuracy]        | `https://stac-extensions.github.io/accuracy/v1.0.0-beta.1/schema.json`  | ✗        |
 | [CEOS-ARD]        | `https://stac-extensions.github.io/ceos-ard/v0.2.0/optical/schema.json` | ✓        |
-| [Classification]  | `https://stac-extensions.github.io/classification/v1.1.0/schema.json`   | ✗        |
+| [Classification]  | `https://stac-extensions.github.io/classification/v2.0.0/schema.json`   | ✗        |
 | [Electro Optical] | `https://stac-extensions.github.io/eo/v2.0.0/schema.json`               | ✓        |
-| [Processing]      | `https://stac-extensions.github.io/processing/v1.1.0/schema.json`       | ✗        |
-| [Projection]      | `https://stac-extensions.github.io/projection/v1.0.0/schema.json`       | ✓        |
+| [Processing]      | `https://stac-extensions.github.io/processing/v1.2.0/schema.json`       | ✗        |
+| [Projection]      | `https://stac-extensions.github.io/projection/v2.0.0/schema.json`       | ✓        |
 | [Raster]          | `https://stac-extensions.github.io/raster/v2.0.0/schema.json`           | ✓        |
 | [View Geometry]   | `https://stac-extensions.github.io/view/v1.1.0/schema.json`             | ✓        |
 
@@ -129,6 +122,7 @@ See [Resolve a DOI name](https://dx.doi.org/) for details.
 | platform       | 1.9  | Platform (mission) name in lower-case. |
 
 Requirement 1.9 asks to provide links to:
+
 - [CEOS Missions Database] record(s)
 - [CEOS Instruments Database] record(s)
 - [CEOS Measurements Database] record(s)
@@ -169,6 +163,7 @@ but other quality flag are not standardized in STAC yet. Please fall back to cus
 
 Requirement 1.13 **requires** all algorithms, and the sequence in which they were applied, to be identified in the metadata.
 This can be expressed in various ways:
+
 - A written description as ordered CommonMark list in `processing:lineage`.
 - A set of algorithms in `processing:software`.
   In this case you need to use another of these options to define the sequence in which they were applied.
@@ -195,15 +190,11 @@ The following links may be provided:
 ### Projection
 
 The metadata is **required** to specify the coordinate reference system (1.5) and the map projection (1.6) through
-either `proj:epsg` or one of the alternatives. The map projection is not required for ST.
-
-> \[!WARNING]  
-> **Deprecation Notice:** In a future version of the version of the projection extension `proj:epsg` will be replaced by `proj:code`.
-> It is recommended to provide both for now.
+either `proj:code` or one of the alternatives. The map projection is not required for ST.
 
 | Field Name                            | Req.      | Description                                                  |
 | ------------------------------------- | --------- | ------------------------------------------------------------ |
-| proj:epsg / proj:wkt2 / proj:projjson | 1.5 / 1.6 | **REQUIRED**. One of the fields is required to be provided. If there's no suitable EPSG code, set `proj:epsg` to `null` and add either `proj:wkt2` or `proj:projjson`. |
+| proj:code / proj:wkt2 / proj:projjson | 1.5 / 1.6 | **REQUIRED**. One of the fields is required to be provided. If there's no suitable CRS code, set `proj:code` to `null` and add either `proj:wkt2` or `proj:projjson`. |
 
 ### View
 
@@ -217,6 +208,7 @@ either `proj:epsg` or one of the alternatives. The map projection is not require
 | view:moon_elevation  | see below | **REQUIRED for NLSR.** The average moon elevation angle. [**TBD**](https://github.com/stac-extensions/view/pull/7) |
 
 The requirements regarding solar, lunar and viewing geometry have different requirement numbers:
+
 - AR: 2.12
 - NLSR: 2.11 and 2.16
 - SR: 2.11
@@ -257,6 +249,7 @@ For data assets, the following properties are relavant in the context of CEOS-AR
 
 This section describes required and optional per-pixel metadata.
 Per-pixel metadata can be encoded in different way, for example:
+
 1. multiple files with a mask per file (only requires the corresponding roles to be set, see below)
 2. a single file with a mask per band (requires `bands`, see [Bands] in [Common metadata])
 3. a single-band file with masks as bit-fields (requires one of the fields in the [Classification] extension)
@@ -359,8 +352,7 @@ The following assets are **optional** for **AR**:
 
 #### Bands
 
-**Deprecation Notice:** In this document we only refer to the new `bands` construct that will be introcued with STAC 1.1.
-For backward compatibility, it is recommended to also provide `eo:bands` and `raster:bands`.
+**Note:** In this document we only refer to the new `bands` construct that was introcued in STAC 1.1.
 Please check the [Raster] and [Electro Optical] extensions for details.
 
 | Field Name             | Req.        | Description |
