@@ -23,11 +23,7 @@ comply to the [CEOS-ARD product family specifications] (PFS) for optical sensors
 - Examples:
   - [Collection example](examples/optical-sr/collection.json): A STAC Collection for a Sentinel-2 L2A data using the STAC CEOS-ARD Optical profile
   - [Item example](examples/optical-sr/item.json): An examplary Item for the Sentinel-2 L2A Collection
-- JSON Schema:
-  - [AR](json-schema/optical-ar/schema.json) (ToDo)
-  - [NLSR](json-schema/optical-nlsr/schema.json) (ToDo)
-  - [SR](json-schema/optical-sr/schema.json) (ToDo)
-  - [ST](json-schema/optical-st/schema.json) (ToDo)
+- JSON Schema: not provided
 
 **Table of Contents:**
 
@@ -66,7 +62,7 @@ This profile doesn't define new STAC fields, it's just a profile that uses
 As the identifier for this profile is just a collection of existing extensions and only defines required fields,
 you get a good bit of validation already without providing the identifier/schema of this profile in `stac_extensions`.
 If your metadata is already compliant to this profile, you can omit the identifier for this profile in
-`stac_extensions` to avoid costly regeneration of the Items. You won't get validation whether all required 
+`stac_extensions` to avoid costly regeneration of the Items. You won't get validation whether all required
 fields are present, but this could be checked manually in the CEOS assessment/review.
 
 The following STAC extensions are relevant for this profile:
@@ -254,7 +250,7 @@ Per-pixel metadata can be encoded in different way, for example:
 2. a single file with a mask per band (requires `bands`, see [Bands] in [Common metadata])
 3. a single-band file with masks as bit-fields (requires one of the fields in the [Classification] extension)
 
-In any way, the per-pixel metadata and its values must be clearly identifiable, e.g. by providing 
+In any way, the per-pixel metadata and its values must be clearly identifiable, e.g. by providing
 clear titles, roles, band information, bitfields, classes, and/or unit  where applicable.
 
 For per-pixel metadata assets, the following properties are relavant in the context of CEOS-ARD:
@@ -396,14 +392,15 @@ Excludes DEMs and DSMs, which must use [separate relation types](#accuracy) inst
 
 ### describedby <!-- omit in toc -->
 
-Various CEOS-ARD requirements ask for documentation about some specifics of the data. 
+Various CEOS-ARD requirements ask for documentation about some specifics of the data.
 Those links should use the relation type `describedby` and have a clear title that clearly gives information about what the link documents.
 Although we recommend to use `describedby` as relation type,
 implementors can choose to use another relation type such as `about` if it suits their implementation better.
-The requested documentation can in principle all be available through a single link, 
+The requested documentation can in principle all be available through a single link,
 so you don't necessarily need to provide one link per bullet point.
 
 The following links are **required**:
+
 - 3.2 (ST): Documentation about corrections for atmosphere and emissivity.
 - 3.4 (AR): Documentation about the atmospheric reflectance correction.
 - 3.4 (SR): Documentation about the directional atmospheric scattering algorithms.
@@ -415,6 +412,7 @@ The following links are **required**:
 - 3.7 (AR): Documentation about other trace faseous absorption corrections.
 
 The following links are **optional**:
+
 - 1.7 (all): Geometric Correction algorithm details.
 - 1.8 (all): Description of the assessed geometric accuracy of the data.
 - 1.11 (all): Instrument / sensor calibration parameters.
