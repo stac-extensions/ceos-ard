@@ -1,11 +1,6 @@
 # CEOS-ARD for Radar <!-- omit in toc -->
 
-- **Title:** CEOS-ARD for Radar
-- **Identifier:**
-  - Product: <https://stac-extensions.github.io/ceos-ard/v0.2.0/radar/product.json>
-  - Source(s): see [Source Data](radar-source.md)
-- **Field Name Prefix:** -
-- **Scope:** Item
+- **Scope:** Item, Collection
 - **Extension [Maturity Classification]:** Proposal
 - **Owner**: @m-mohr
 
@@ -26,7 +21,7 @@ and includes the specifications for:
 **Additional resources:**
 
 - Examples (ToDo)
-- JSON Schema (ToDo)
+- JSON Schema: not provided
 
 **Table of Contents:**
 
@@ -59,7 +54,7 @@ This profile doesn't define new STAC fields, it's just a profile that uses
 As the identifier for this profile is just a collection of existing extensions and only defines required fields,
 you get a good bit of validation already without providing the identifier/schema of this profile in `stac_extensions`.
 If your metadata is already compliant to this profile, you can omit the identifier for this profile in
-`stac_extensions` to avoid costly regeneration of the Items. You won't get validation whether all required 
+`stac_extensions` to avoid costly regeneration of the Items. You won't get validation whether all required
 fields are present, but this could be checked manually in the CEOS assessment/review.
 
 The following STAC extensions are relevant for this profile:
@@ -125,16 +120,12 @@ The fields can be provided either in the [Collection](#stac-collections) or in e
 
 ### Projection
 
-The metadata is **required** to specify the coordinate reference system through either `proj:epsg` or one of the alternatives.
-
-> \[!WARNING]  
-> **Deprecation Notice:** In a future version of the version of the projection extension `proj:epsg` will be replaced by `proj:code`.
-> It is recommended to provide both for now.
+The metadata is **required** to specify the coordinate reference system through either `proj:code` or one of the alternatives.
 
 | Field Name                            | Req.   | Description                                                  |
 | ------------------------------------- | ------ | ------------------------------------------------------------ |
-| proj:epsg / proj:wkt2 / proj:projjson | 1.7.11 | **REQUIRED**. One of the fields is required to be provided, recommended is `proj:epsg`. If there's no suitable EPSG code, set `proj:epsg` to `null` and add either `proj:wkt2` or `proj:projjson`. |
-| proj:bbox                             | 1.7.7  | **REQUIRED**. The bounding box of the acquisition in the projection defined in proj:epsg / proj:wkt2 / proj:projjson. |
+| proj:code / proj:wkt2 / proj:projjson | 1.7.11 | **REQUIRED**. One of the fields is required to be provided, recommended is `proj:code`. If there's no suitable CRS code, set `proj:code` to `null` and add either `proj:wkt2` or `proj:projjson`. |
+| proj:bbox                             | 1.7.7  | **REQUIRED**. The bounding box of the acquisition in the projection defined in proj:code / proj:wkt2 / proj:projjson. |
 
 ### Links
 

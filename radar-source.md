@@ -1,6 +1,8 @@
 # CEOS-ARD for Radar - Source Data <!-- omit in toc -->
 
-- **Identifier:** <https://stac-extensions.github.io/ceos-ard/v0.2.0/radar/source.json>
+- **Scope:** Item, Collection
+- **Extension [Maturity Classification]:** Proposal
+- **Owner**: @m-mohr
 
 This extension specifies how to create [STAC] Items for Source Data that
 comply to the [CEOS-ARD product family specifications] (PFS) for radar sensors.
@@ -76,6 +78,7 @@ The fields can be provided either in the [Collection](radar.md#stac-collections)
 | platform    | 1.6.2 | **REQUIRED.** Satellite name in lower-case.                  |
 
 Requirement 1.6.2 asks to provide links to:
+
 - [CEOS Missions Database] record(s)
 - [CEOS Instruments Database] record(s)
 - [CEOS Measurements Database] record(s)
@@ -93,13 +96,9 @@ Requirement 1.6.2 asks to provide links to:
 
 ### Projection
 
-> \[!WARNING]  
-> **Deprecation Notice:** In a future version of the version of the projection extension `proj:epsg` will be replaced by `proj:code`.
-> It is recommended to provide both for now.
-
 | Field Name                            | Req.  | Description                                                  |
 | ------------------------------------- | ----- | ------------------------------------------------------------ |
-| proj:epsg / proj:wkt2 / proj:projjson | 1.6.7 | **REQUIRED**. Coordinate Reference System (CRS). One of the fields is required to be provided. |
+| proj:code / proj:wkt2 / proj:projjson | 1.6.7 | **REQUIRED**. Coordinate Reference System (CRS). One of the fields is required to be provided. |
 | proj:bbox                             | 1.7.7 | **REQUIRED**. The source data geometry in the given CRS. |
 
 ### SAR
