@@ -69,7 +69,18 @@ The following types must be used as applicable `rel` types in the
 
 | Type                   | Description |
 | ---------------------- | ----------- |
-| ceos-ard-specification | **REQUIRED.** Provides at least one link to the applicable CEOS-ARD specification document. Word (media type: `application/vnd.openxmlformats-officedocument.wordprocessingml.document`) and/or PDF (media type: `application/pdf`). |
+| ceos-ard-specification | **REQUIRED.** Provides at least one link to the applicable CEOS-ARD specification document. |
+| ceos-ard-assessment    | Provides a link to the applicable peer-reviewed CEOS-ARD (self-)assessment result document. |
+
+### Common Media Types
+
+For convenience, a list of common media types for the relation types defined above follows:
+
+| File Format   | File Extension  | Media Type |
+| ------------- | --------------- | ---------- |
+| PDF document  | pdf             | `application/pdf` |
+| Word document | docx (not: doc) | `application/vnd.openxmlformats-officedocument.wordprocessingml.document` |
+| HTML document | htm, html, etc. | `text/html` |
 
 ## Contributing
 
